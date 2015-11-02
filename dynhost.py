@@ -84,7 +84,7 @@ if __name__=="__main__":
          Subject: IP changed
 
          IP has been changed %s => %s
-         """%(sender, receiver, ip, OLD_IP)
+         """%(sender, receiver, ip, oldip)
          try:
             smtpObj = smtplib.SMTP(smtp)
             smtpObj.sendmail(sender, receiver, message)
