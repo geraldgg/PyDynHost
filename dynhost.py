@@ -6,6 +6,7 @@
 import os
 import os.path as p
 import re
+import smtplib
 import urllib2
 import time
 import subprocess
@@ -14,6 +15,9 @@ import sys
 host = "hostname.net"
 login = "login"
 password = "password"
+
+sender = 'from@from.net'
+receiver = ['to@to.net']
 
 PATH_APP = "/usr/local/dynhost"
 PATH_LOG = p.join(PATH_APP, "log")
@@ -66,7 +70,20 @@ if __name__=="__main__":
          fip.write(ip)
          fip.close()
          Log("Writing ip=%s to %s"%(ip, OLD_IP))
-     
+
+         message = """From: %s
+         To: %s
+         Subject: IP changed
+
+         IP has been changed %s => %s
+         """%(sender, receiver, ip, OLD_IP)
+         try:
+            smtpObj = smtplib.SMTP('smtp.orange.fr')
+            smtpObj.sendmail(sender, receiver, message)
+            Log("Successfully sent email")
+         except Exception, e:
+            Log("Error: unable to send email:"+str(e))
+
       logfile.close()
 
 
