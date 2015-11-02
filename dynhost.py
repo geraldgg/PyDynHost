@@ -3,6 +3,7 @@
 #
 # CONFIG GOES HERE
 #
+import ConfigParser
 import os
 import os.path as p
 import re
@@ -10,14 +11,20 @@ import smtplib
 import urllib2
 import time
 import subprocess
-import sys
 
-host = "hostname.net"
-login = "login"
-password = "password"
+if not p.exists("user.cfg"):
+   print("Couldn't find user.cfg")
+   exit(1)
 
-sender = 'from@from.net'
-receiver = ['to@to.net']
+c = ConfigParser.ConfigParser()
+c.read("user.cfg")
+host = c.get("server", "host")
+login = c.get("server", "login")
+password = c.get("server", "password")
+PATH_APP = c.get("server", "installpath")
+
+sender = c.get("server", "sender")
+receiver = [c.get("server", "receiver")]
 
 PATH_APP = "/usr/local/dynhost"
 PATH_LOG = p.join(PATH_APP, "log")
