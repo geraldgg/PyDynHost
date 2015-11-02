@@ -25,6 +25,7 @@ PATH_APP = c.get("server", "installpath")
 
 sender = c.get("server", "sender")
 receiver = [c.get("server", "receiver")]
+smtp = [c.get("server", "smtp")]
 
 PATH_APP = "/usr/local/dynhost"
 PATH_LOG = p.join(PATH_APP, "log")
@@ -85,7 +86,7 @@ if __name__=="__main__":
          IP has been changed %s => %s
          """%(sender, receiver, ip, OLD_IP)
          try:
-            smtpObj = smtplib.SMTP('smtp.orange.fr')
+            smtpObj = smtplib.SMTP(smtp)
             smtpObj.sendmail(sender, receiver, message)
             Log("Successfully sent email")
          except Exception, e:
