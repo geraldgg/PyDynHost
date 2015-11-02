@@ -3,19 +3,25 @@
 #
 # CONFIG GOES HERE
 #
+import ConfigParser
 import os
 import os.path as p
 import re
 import urllib2
 import time
 import subprocess
-import sys
 
-host = "hostname.net"
-login = "login"
-password = "password"
+if not p.exists("user.cfg"):
+   print("Couldn't find user.cfg")
+   exit(1)
 
-PATH_APP = "/usr/local/dynhost"
+c = ConfigParser.ConfigParser()
+c.read("user.cfg")
+host = c.get("server", "host")
+login = c.get("server", "login")
+password = c.get("server", "password")
+PATH_APP = c.get("server", "installpath")
+
 PATH_LOG = p.join(PATH_APP, "log")
 OLD_IP = p.join(PATH_APP, "old_ip")
 
