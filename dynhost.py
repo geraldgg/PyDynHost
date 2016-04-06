@@ -24,10 +24,9 @@ password = c.get("server", "password")
 PATH_APP = c.get("server", "installpath")
 
 sender = c.get("server", "sender")
-receiver = [c.get("server", "receiver")]
-smtp = [c.get("server", "smtp")]
+receiver = c.get("server", "receiver")
+smtp = c.get("server", "smtp")
 
-PATH_APP = "/usr/local/dynhost"
 PATH_LOG = p.join(PATH_APP, "log")
 OLD_IP = p.join(PATH_APP, "old_ip")
 
