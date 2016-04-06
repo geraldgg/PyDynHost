@@ -12,16 +12,18 @@ import urllib2
 import time
 import subprocess
 
-if not p.exists("user.cfg"):
-   print("Couldn't find user.cfg")
+curdir=p.dirname(__file__)
+cfgfile=p.join(curdir, "user.cfg")
+if not p.exists(cfgfile):
+   print("Couldn't find "+cfgfile)
    exit(1)
 
 c = ConfigParser.ConfigParser()
-c.read("user.cfg")
+c.read(cfgfile)
 host = c.get("server", "host")
 login = c.get("server", "login")
 password = c.get("server", "password")
-PATH_APP = c.get("server", "installpath")
+PATH_APP = curdir
 
 sender = c.get("server", "sender")
 receiver = c.get("server", "receiver")
